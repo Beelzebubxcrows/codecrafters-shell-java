@@ -26,7 +26,7 @@ public class TypeCommand implements ICommand{
         for(Map.Entry<String, ICommand> command : _commands.entrySet()){
             ICommand commandExecutor = command.getValue();
             if(commandExecutor.IsCommandValid(args[0])){
-                System.out.println(args[0]+" is a shell BuiltIn");
+                System.out.println(args[0]+" is a shell builtin");
                 return true;
             }
         }
