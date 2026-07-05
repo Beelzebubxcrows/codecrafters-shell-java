@@ -32,7 +32,7 @@ public class TypeCommand implements ICommand{
         }
 
 
-        ShellUtils.HandleCommandNotFound(args[0]);
+        ShellUtils.HandledNotFound(args[0]);
         return true;
     }
 
