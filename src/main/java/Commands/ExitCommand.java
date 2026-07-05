@@ -7,7 +7,7 @@ public class ExitCommand implements ICommand{
     }
 
     @Override
-    public boolean ExecuteCommand() {
+    public boolean ExecuteCommand(String[] args) {
         return false;
     }
 
