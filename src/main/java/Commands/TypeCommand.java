@@ -1,7 +1,6 @@
 package Commands;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import Utils.ShellUtils;
 
@@ -13,23 +12,16 @@ public class TypeCommand implements ICommand{
         return COMMAND_STRING;
     }
 
-    @Override
-    public boolean IsCommandValid(String command) {
-        return command.equals(COMMAND_STRING);
-        
-    }
+    
 
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
         
-        
-        for(Map.Entry<String, ICommand> command : _commands.entrySet()){
-            ICommand commandExecutor = command.getValue();
-            if(commandExecutor.IsCommandValid(args[0])){
-                System.out.println(args[0]+" is a shell builtin");
-                return true;
-            }
+        if(_commands.containsKey(args[0])){
+            System.out.println(args[0]+" is a shell builtin");
+            return true;
         }
+        
 
 
         ShellUtils.HandledNotFound(args[0]);

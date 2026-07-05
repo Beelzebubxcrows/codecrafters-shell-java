@@ -11,10 +11,6 @@ public class ExitCommand implements ICommand{
         return COMMAND_STRING;
     }
 
-    @Override
-    public boolean IsCommandValid(String command) {
-        return command.equals(COMMAND_STRING);
-    }
 
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {

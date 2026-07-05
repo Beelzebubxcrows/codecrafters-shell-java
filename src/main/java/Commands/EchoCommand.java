@@ -14,11 +14,6 @@ public class EchoCommand implements ICommand{
 
 
     @Override
-    public boolean IsCommandValid(String command) {
-        return command.equals(COMMAND_STRING);
-    }
-
-    @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
     
         for(String argument : args){

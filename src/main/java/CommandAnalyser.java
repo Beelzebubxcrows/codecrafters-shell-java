@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import Commands.EchoCommand;
 import Commands.ExitCommand;
@@ -38,13 +34,11 @@ public class CommandAnalyser {
             arguments[i] = commandTokens[i+1];
         }
 
-        for(Map.Entry<String, ICommand> command : _commands.entrySet()){
-
-            ICommand commanExecutor = command.getValue();
-            if(commanExecutor.IsCommandValid(mainCommand)){
-                return commanExecutor.ExecuteCommand(arguments, _commands);
-            }
+        if(_commands.containsKey(mainCommand)){
+            ICommand commanExecutor = _commands.get(mainCommand);
+            return commanExecutor.ExecuteCommand(arguments, _commands);
         }
+        
             
         ShellUtils.HandleCommandNotFound(mainCommand);
         return true;
