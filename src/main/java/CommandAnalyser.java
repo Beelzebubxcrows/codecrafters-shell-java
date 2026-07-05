@@ -1,19 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
+
+import Commands.ExitCommand;
+import Commands.ICommand;
+
 public class CommandAnalyser {
 
+    private List<ICommand> _commands;
+    
+    CommandAnalyser(){
+        _commands = new ArrayList<>();
+        _commands.add(new ExitCommand());
+    }
 
-    public void AnalyseCommand(String command){
+    public boolean AnalyseCommand(String commandString){
 
-        String[] commandTokens = command.split(" ");
+        String[] commandTokens = commandString.split(" ");
         String mainCommand = commandTokens[0];
 
-        boolean IsCommandValid = CommandValidator.IsCommandValid(mainCommand);
-
-        if(!IsCommandValid){
-            handleCommandNotFound(mainCommand);
-            return;
+        for(ICommand command : _commands){
+            if(command.IsCommandValid(mainCommand)){
+                return command.ExecuteCommand();
+            }
         }
+            
+        handleCommandNotFound(mainCommand);
+        return true;
     
-
     }
 
 

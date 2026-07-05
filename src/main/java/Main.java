@@ -3,15 +3,20 @@ import java.io.InputStreamReader;
 
 
 public class Main {
+
+    
     public static void main(String[] args) throws Exception {
+        
 
         CommandAnalyser commandAnalyser = new CommandAnalyser();
-
-        System.out.print("$ ");
-        
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String userInput = bufferedReader.readLine();
-        commandAnalyser.AnalyseCommand(userInput);
+        
+        boolean shouldLoop = true;
+        while(shouldLoop) {
+            System.out.print("$ ");
+            String userInput = bufferedReader.readLine();
+            shouldLoop = commandAnalyser.AnalyseCommand(userInput);
+        }
 
     }
 }
