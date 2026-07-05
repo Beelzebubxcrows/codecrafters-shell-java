@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Commands.EchoCommand;
 import Commands.ExitCommand;
@@ -7,12 +10,16 @@ import Commands.ICommand;
 
 public class CommandAnalyser {
 
-    private List<ICommand> _commands;
+    private HashMap<String, ICommand> _commands;
     
     CommandAnalyser(){
-        _commands = new ArrayList<>();
-        _commands.add(new ExitCommand());
-        _commands.add(new EchoCommand());
+        _commands = new HashMap<>();
+
+        ExitCommand exitCommand = new ExitCommand();
+        _commands.put(exitCommand.GetCommandString(), exitCommand);
+
+        EchoCommand echoCommand = new EchoCommand();
+        _commands.put(echoCommand.GetCommandString(), echoCommand);
     }
 
     public boolean AnalyseCommand(String commandString){
@@ -26,9 +33,11 @@ public class CommandAnalyser {
             arguments[i] = commandTokens[i+1];
         }
 
-        for(ICommand command : _commands){
-            if(command.IsCommandValid(mainCommand)){
-                return command.ExecuteCommand(arguments);
+        for(Map.Entry<String, ICommand> command : _commands.entrySet()){
+
+            ICommand commanExecutor = command.getValue();
+            if(commanExecutor.IsCommandValid(mainCommand)){
+                return commanExecutor.ExecuteCommand(arguments);
             }
         }
             
