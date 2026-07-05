@@ -7,6 +7,8 @@ import java.util.Map;
 import Commands.EchoCommand;
 import Commands.ExitCommand;
 import Commands.ICommand;
+import Commands.TypeCommand;
+import Utils.ShellUtils;
 
 public class CommandAnalyser {
 
@@ -20,6 +22,9 @@ public class CommandAnalyser {
 
         EchoCommand echoCommand = new EchoCommand();
         _commands.put(echoCommand.GetCommandString(), echoCommand);
+
+        TypeCommand typeCommand = new TypeCommand();
+        _commands.put(typeCommand.GetCommandString(), typeCommand);
     }
 
     public boolean AnalyseCommand(String commandString){
@@ -37,20 +42,13 @@ public class CommandAnalyser {
 
             ICommand commanExecutor = command.getValue();
             if(commanExecutor.IsCommandValid(mainCommand)){
-                return commanExecutor.ExecuteCommand(arguments);
+                return commanExecutor.ExecuteCommand(arguments, _commands);
             }
         }
             
-        handleCommandNotFound(mainCommand);
+        ShellUtils.HandleCommandNotFound(mainCommand);
         return true;
     
-    }
-
-
-
-
-    private void handleCommandNotFound(String mainCommand){
-        System.out.println(mainCommand+": command not found");
     }
 
 }

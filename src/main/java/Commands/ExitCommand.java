@@ -1,4 +1,7 @@
 package Commands;
+
+import java.util.HashMap;
+
 public class ExitCommand implements ICommand{
 
     private final String COMMAND_STRING = "exit";
@@ -14,7 +17,7 @@ public class ExitCommand implements ICommand{
     }
 
     @Override
-    public boolean ExecuteCommand(String[] args) {
+    public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
         return false;
     }
 

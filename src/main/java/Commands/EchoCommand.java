@@ -1,5 +1,7 @@
 package Commands;
 
+import java.util.HashMap;
+
 public class EchoCommand implements ICommand{
 
 
@@ -17,7 +19,7 @@ public class EchoCommand implements ICommand{
     }
 
     @Override
-    public boolean ExecuteCommand(String[] args) {
+    public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
     
         for(String argument : args){
             System.out.print(argument+" ");
