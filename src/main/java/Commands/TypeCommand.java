@@ -1,5 +1,7 @@
 package Commands;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import Utils.ShellUtils;
@@ -21,6 +23,10 @@ public class TypeCommand implements ICommand{
             System.out.println(args[0]+" is a shell builtin");
             return true;
         }
+
+        if(getCommandFromPath(args[0])){
+            return true;
+        }
         
 
 
@@ -28,4 +34,27 @@ public class TypeCommand implements ICommand{
         return true;
     }
 
+    private boolean getCommandFromPath(String mainCommand){
+
+        String[] paths = System.getenv("PATH").split(":");
+
+        for(String path : paths){
+            String filePath = Paths.get(path,mainCommand).toString();
+            boolean isFilePresent = ShellUtils.IsFilePresentAtLocation(filePath);
+            if(isFilePresent){
+                if(ShellUtils.FileHasExecutePermissions(filePath)){
+                    System.out.println(mainCommand+" is "+filePath);
+                    return true;
+                }
+            }
+
+
+        }
+
+
+        return false;
+    }
+
+
+    
 }
