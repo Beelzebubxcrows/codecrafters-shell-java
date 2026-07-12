@@ -19,16 +19,22 @@ public class ExecutableCommand implements ICommand{
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
         
-        List<String> args1 = new ArrayList<>();
-        for(String s : args){
-            args1.add(s);
+        String filePath = getCommandFromPath(args[0]);
+        if(!filePath.isEmpty()){
+            List<String> argumentlist = new ArrayList<>();
+            
+            for(String str : args){
+                argumentlist.add(str);
+            }
+
+            ShellUtils.ExecuteShellCommand(argumentlist);
+            return true;
         }
-        ShellUtils.ExecuteShellCommand(args1);
 
-        return true;
-        
-
+        return false;
     } 
+
+
 
     private String getCommandFromPath(String mainCommand){
 
@@ -42,11 +48,7 @@ public class ExecutableCommand implements ICommand{
                     return filePath;
                 }
             }
-
-
         }
-
-
         return "";
     }
 

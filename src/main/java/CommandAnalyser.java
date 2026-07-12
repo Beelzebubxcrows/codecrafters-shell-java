@@ -22,9 +22,6 @@ public class CommandAnalyser {
 
         TypeCommand typeCommand = new TypeCommand();
         _commands.put(typeCommand.GetCommandString(), typeCommand);
-
-        ExecutableCommand executableCommand = new ExecutableCommand();
-        _commands.put(executableCommand.GetCommandString(), executableCommand);
     }
 
     public boolean AnalyseCommand(String commandString){
@@ -41,13 +38,16 @@ public class CommandAnalyser {
         if(_commands.containsKey(mainCommand)){
             ICommand commanExecutor = _commands.get(mainCommand);
             return commanExecutor.ExecuteCommand(arguments, _commands);
-        } else {
-            return _commands.get("exec").ExecuteCommand(arguments, _commands);
+        }
+
+        ExecutableCommand executeCommand = new ExecutableCommand();
+        if(executeCommand.ExecuteCommand(arguments, _commands)){
+            return true;
         }
         
             
-        //ShellUtils.HandleCommandNotFound(mainCommand);
-        //return true;
+        ShellUtils.HandleCommandNotFound(mainCommand);
+        return true;
     
     }
 
