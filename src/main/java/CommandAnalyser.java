@@ -3,6 +3,7 @@ import java.util.HashMap;
 import Commands.EchoCommand;
 import Commands.ExecutableCommand;
 import Commands.ICommand;
+import Commands.PwdCommand;
 import Commands.TypeCommand;
 import Utils.Constants;
 import Utils.ShellUtils;
@@ -15,13 +16,13 @@ public class CommandAnalyser {
     CommandAnalyser(){
         _builtInCommands = new HashMap<>();
 
-        EchoCommand echoCommand = new EchoCommand();
-        _builtInCommands.put(Constants.ECHO_COMMAND_STRING, echoCommand);
+        _builtInCommands.put(Constants.ECHO_COMMAND_STRING, new EchoCommand());
 
-        TypeCommand typeCommand = new TypeCommand();
-        _builtInCommands.put(Constants.TYPE_COMMAND_STRING, typeCommand);
+        _builtInCommands.put(Constants.TYPE_COMMAND_STRING, new TypeCommand());
 
         _builtInCommands.put(Constants.EXIT_COMMAND_STRING, null);
+
+        _builtInCommands.put(Constants.PWD_COMMAND_STRING, new PwdCommand());
     }
 
     public void AnalyseCommand(String[] commandTokens){
