@@ -2,22 +2,21 @@ package Commands;
 
 import java.util.HashMap;
 
+import Utils.Constants;
+
 public class EchoCommand implements ICommand{
-
-
-    private final String COMMAND_STRING = "echo";
 
     @Override
     public String GetCommandString() {
-        return COMMAND_STRING;
+        return Constants.ECHO_COMMAND_STRING;
     }
 
 
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
     
-        for(String argument : args){
-            System.out.print(argument+" ");
+        for(int index = 1; index<args.length; index++){
+            System.out.print(args[index]+" ");
         }
 
         System.out.println();

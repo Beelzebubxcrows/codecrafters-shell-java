@@ -2,52 +2,43 @@ import java.util.HashMap;
 
 import Commands.EchoCommand;
 import Commands.ExecutableCommand;
-import Commands.ExitCommand;
 import Commands.ICommand;
 import Commands.TypeCommand;
 import Utils.ShellUtils;
 
 public class CommandAnalyser {
 
-    private HashMap<String, ICommand> _commands;
+    private HashMap<String, ICommand> _builtInCommands;
     
     CommandAnalyser(){
-        _commands = new HashMap<>();
-
-        ExitCommand exitCommand = new ExitCommand();
-        _commands.put(exitCommand.GetCommandString(), exitCommand);
+        _builtInCommands = new HashMap<>();
 
         EchoCommand echoCommand = new EchoCommand();
-        _commands.put(echoCommand.GetCommandString(), echoCommand);
+        _builtInCommands.put(echoCommand.GetCommandString(), echoCommand);
 
         TypeCommand typeCommand = new TypeCommand();
-        _commands.put(typeCommand.GetCommandString(), typeCommand);
+        _builtInCommands.put(typeCommand.GetCommandString(), typeCommand);
     }
 
-    public boolean AnalyseCommand(String commandString){
-
-        String[] commandTokens = commandString.split(" ");
+    public void AnalyseCommand(String[] commandTokens){
 
         String mainCommand = commandTokens[0];
 
-        String[] arguments = new String[commandTokens.length-1];
-        for(int i = 0; i<arguments.length; i++){
-            arguments[i] = commandTokens[i+1];
-        }
-
-        if(_commands.containsKey(mainCommand)){
-            ICommand commanExecutor = _commands.get(mainCommand);
-            return commanExecutor.ExecuteCommand(arguments, _commands);
+    
+        if(_builtInCommands.containsKey(mainCommand)){
+            ICommand commanExecutor = _builtInCommands.get(mainCommand);
+            commanExecutor.ExecuteCommand(commandTokens, _builtInCommands);
         }
 
         ExecutableCommand executeCommand = new ExecutableCommand();
-        if(executeCommand.ExecuteCommand(commandTokens, _commands)){
-            return true;
+        Boolean wasExecutableFound = executeCommand.ExecuteCommand(commandTokens, _builtInCommands);
+        if(wasExecutableFound){
+            return;
         }
+        
         
             
         ShellUtils.HandleCommandNotFound(mainCommand);
-        return true;
     
     }
 
