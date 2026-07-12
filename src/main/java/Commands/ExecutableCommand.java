@@ -1,39 +1,36 @@
 package Commands;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import Utils.ShellUtils;
 
-public class TypeCommand implements ICommand{
+public class ExecutableCommand implements ICommand{
+    
+    private final String COMMAND_STRING = "exec";
 
-    private final String COMMAND_STRING = "type";
     @Override
     public String GetCommandString() {
         return COMMAND_STRING;
     }
 
-    
-
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
         
-        if(_commands.containsKey(args[0])){
-            System.out.println(args[0]+" is a shell builtin");
-            return true;
+        List<String> args1 = new ArrayList<>();
+        for(String s : args){
+            args1.add(s);
         }
+        ShellUtils.ExecuteShellCommand(args1);
 
-        if(getCommandFromPath(args[0])){
-            return true;
-        }
+        return true;
         
 
+    } 
 
-        ShellUtils.HandledNotFound(args[0]);
-        return true;
-    }
-
-    private boolean getCommandFromPath(String mainCommand){
+    private String getCommandFromPath(String mainCommand){
 
         String[] paths = System.getenv("PATH").split(":");
 
@@ -42,8 +39,7 @@ public class TypeCommand implements ICommand{
             boolean isFilePresent = ShellUtils.IsFilePresentAtLocation(filePath);
             if(isFilePresent){
                 if(ShellUtils.FileHasExecutePermissions(filePath)){
-                    System.out.println(mainCommand+" is "+filePath);
-                    return true;
+                    return filePath;
                 }
             }
 
@@ -51,9 +47,7 @@ public class TypeCommand implements ICommand{
         }
 
 
-        return false;
+        return "";
     }
 
-
-    
 }
