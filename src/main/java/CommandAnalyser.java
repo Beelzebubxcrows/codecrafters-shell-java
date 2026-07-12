@@ -9,7 +9,8 @@ import Utils.ShellUtils;
 public class CommandAnalyser {
 
     private HashMap<String, ICommand> _builtInCommands;
-    
+    private ExecutableCommand _executeCommand = new ExecutableCommand();
+
     CommandAnalyser(){
         _builtInCommands = new HashMap<>();
 
@@ -28,18 +29,18 @@ public class CommandAnalyser {
         if(_builtInCommands.containsKey(mainCommand)){
             ICommand commanExecutor = _builtInCommands.get(mainCommand);
             commanExecutor.ExecuteCommand(commandTokens, _builtInCommands);
-        }
+            
+            return;
+        } 
 
-        ExecutableCommand executeCommand = new ExecutableCommand();
-        Boolean wasExecutableFound = executeCommand.ExecuteCommand(commandTokens, _builtInCommands);
+        
+        Boolean wasExecutableFound = _executeCommand.ExecuteCommand(commandTokens, _builtInCommands);
         if(wasExecutableFound){
             return;
         }
         
-        
             
         ShellUtils.HandleCommandNotFound(mainCommand);
-    
     }
 
 }
