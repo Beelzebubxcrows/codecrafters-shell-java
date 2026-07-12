@@ -4,6 +4,7 @@ import Commands.EchoCommand;
 import Commands.ExecutableCommand;
 import Commands.ICommand;
 import Commands.TypeCommand;
+import Utils.Constants;
 import Utils.ShellUtils;
 
 public class CommandAnalyser {
@@ -15,10 +16,12 @@ public class CommandAnalyser {
         _builtInCommands = new HashMap<>();
 
         EchoCommand echoCommand = new EchoCommand();
-        _builtInCommands.put(echoCommand.GetCommandString(), echoCommand);
+        _builtInCommands.put(Constants.ECHO_COMMAND_STRING, echoCommand);
 
         TypeCommand typeCommand = new TypeCommand();
-        _builtInCommands.put(typeCommand.GetCommandString(), typeCommand);
+        _builtInCommands.put(Constants.TYPE_COMMAND_STRING, typeCommand);
+
+        _builtInCommands.put(Constants.EXIT_COMMAND_STRING, null);
     }
 
     public void AnalyseCommand(String[] commandTokens){
