@@ -49,10 +49,6 @@ return false;
                 System.out.println(line);
             }
 
-            // Wait for the command to finish and get the exit code
-            int exitCode = process.waitFor();
-            System.out.println("\nExited with error code: " + exitCode);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
