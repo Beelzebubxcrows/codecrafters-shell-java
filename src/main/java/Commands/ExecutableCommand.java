@@ -19,7 +19,7 @@ public class ExecutableCommand implements ICommand{
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
         
-        String filePath = getCommandFromPath(args[0]);System.out.println(filePath);
+        String filePath = getCommandFromPath(args[0]);
         if(!filePath.isEmpty()){
             List<String> argumentlist = new ArrayList<>();
             
@@ -38,7 +38,7 @@ public class ExecutableCommand implements ICommand{
 
     private String getCommandFromPath(String mainCommand){
 
-        System.out.println(System.getenv("PATH")+" "+mainCommand);
+        //System.out.println(System.getenv("PATH")+" "+mainCommand);
         String[] paths = System.getenv("PATH").split(":");
 
         for(String path : paths){
