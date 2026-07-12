@@ -41,7 +41,7 @@ public class CommandAnalyser {
         }
 
         ExecutableCommand executeCommand = new ExecutableCommand();
-        if(executeCommand.ExecuteCommand(arguments, _commands)){
+        if(executeCommand.ExecuteCommand(commandTokens, _commands)){
             return true;
         }
         
