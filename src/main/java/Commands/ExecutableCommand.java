@@ -38,7 +38,7 @@ public class ExecutableCommand implements ICommand{
 
     private String getCommandFromPath(String mainCommand){
 
-        System.out.println(System.getenv("PATH"));
+        System.out.println(System.getenv("PATH")+" "+mainCommand);
         String[] paths = System.getenv("PATH").split(":");
 
         for(String path : paths){
