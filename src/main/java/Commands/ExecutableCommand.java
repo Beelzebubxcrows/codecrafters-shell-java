@@ -28,10 +28,9 @@ public class ExecutableCommand implements ICommand{
             }
 
             ShellUtils.ExecuteShellCommand(argumentlist);
-            return true;
         }
 
-        return false;
+        return true;
     } 
 
 
