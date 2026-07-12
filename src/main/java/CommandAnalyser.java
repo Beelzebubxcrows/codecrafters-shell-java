@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
 import Commands.EchoCommand;
+import Commands.ExecutableCommand;
 import Commands.ExitCommand;
 import Commands.ICommand;
 import Commands.TypeCommand;
@@ -21,6 +22,9 @@ public class CommandAnalyser {
 
         TypeCommand typeCommand = new TypeCommand();
         _commands.put(typeCommand.GetCommandString(), typeCommand);
+
+        ExecutableCommand executableCommand = new ExecutableCommand();
+        _commands.put(executableCommand.GetCommandString(), executableCommand);
     }
 
     public boolean AnalyseCommand(String commandString){
@@ -37,11 +41,13 @@ public class CommandAnalyser {
         if(_commands.containsKey(mainCommand)){
             ICommand commanExecutor = _commands.get(mainCommand);
             return commanExecutor.ExecuteCommand(arguments, _commands);
+        } else {
+            return _commands.get("exec").ExecuteCommand(arguments, _commands);
         }
         
             
-        ShellUtils.HandleCommandNotFound(mainCommand);
-        return true;
+        //ShellUtils.HandleCommandNotFound(mainCommand);
+        //return true;
     
     }
 
