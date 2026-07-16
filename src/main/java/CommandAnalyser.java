@@ -1,5 +1,6 @@
 import java.util.HashMap;
 
+import Commands.CdCommand;
 import Commands.EchoCommand;
 import Commands.ExecutableCommand;
 import Commands.ICommand;
@@ -16,13 +17,15 @@ public class CommandAnalyser {
     CommandAnalyser(){
         _builtInCommands = new HashMap<>();
 
+        _builtInCommands.put(Constants.EXIT_COMMAND_STRING, null);
+        
         _builtInCommands.put(Constants.ECHO_COMMAND_STRING, new EchoCommand());
 
         _builtInCommands.put(Constants.TYPE_COMMAND_STRING, new TypeCommand());
 
-        _builtInCommands.put(Constants.EXIT_COMMAND_STRING, null);
-
         _builtInCommands.put(Constants.PWD_COMMAND_STRING, new PwdCommand());
+
+        _builtInCommands.put(Constants.CD_COMMAND_STRING, new CdCommand());
     }
 
     public void AnalyseCommand(String[] commandTokens){

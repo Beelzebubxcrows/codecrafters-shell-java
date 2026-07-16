@@ -16,13 +16,18 @@ public class ShellUtils {
         System.out.println(mainCommand+": not found");
     }
 
-    
+
     public static boolean IsFilePresentAtLocation(String filePathString){
         File f = new File(filePathString);
         if(f.exists() && !f.isDirectory()) { 
             return true;
         }
         return false;
+    }
+
+    public static boolean DoesDirectoryExist(String filePathString) {
+        File f = new File(filePathString);
+        return f.exists();
     }
 
     public static boolean FileHasExecutePermissions(String filePath) {

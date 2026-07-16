@@ -5,4 +5,5 @@ public class Constants {
     public static final String ECHO_COMMAND_STRING = "echo";
     public static final String TYPE_COMMAND_STRING = "type";
     public static final String PWD_COMMAND_STRING = "pwd";
+    public static final String CD_COMMAND_STRING = "cd";
 }

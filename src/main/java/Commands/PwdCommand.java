@@ -2,6 +2,7 @@ package Commands;
 
 import java.util.HashMap;
 
+import Model.ShellState;
 import Utils.Constants;
 
 public class PwdCommand implements ICommand{
@@ -14,11 +15,7 @@ public class PwdCommand implements ICommand{
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
         
-
-        String currentDirectory =  System.getProperty("user.dir");
-        System.out.println(currentDirectory);
-
-
+        System.out.println(ShellState.CurrentDirectory);
 
         return true;
     }
