@@ -1,4 +1,5 @@
 package Commands;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
@@ -16,65 +17,39 @@ public class CdCommand implements ICommand{
     @Override
     public boolean ExecuteCommand(String[] args, HashMap<String, ICommand> _commands) {
         
-        boolean isRelativePath = false;
-
         String newWorkingDirectory = args[1];
         String[] newWorkingDirectoryTokens = newWorkingDirectory.split("/");
 
 
-        String[] currentDirectoryTokens = ShellState.CurrentDirectory.split("/");
-        int currentDirectoryPointer = currentDirectoryTokens.length-1;
+        Path path = Paths.get("");
 
         
-        int newWorkingDirectoryPointer = 0;
         for(String token : newWorkingDirectoryTokens){
-            
-            if(token.isBlank()){
-                newWorkingDirectoryPointer++;
-            }
-            else if(token.equals("..")){
-                currentDirectoryPointer--;
-                newWorkingDirectoryPointer++;
-                isRelativePath = true;
+            if(token.equals("..")){       
+                if(path.toString().equals(""))         {
+                    path = Paths.get(ShellState.CurrentDirectory);
+                }
+                path = path.getParent();
             } 
+            else if(token.equals("~")){
+                path = Paths.get(System.getenv("HOME"));
+            }
             else if(token.equals(".")){
-                newWorkingDirectoryPointer++;
-                isRelativePath = true;
-            } 
+                if(path.toString().isEmpty()){
+                    path = Paths.get(ShellState.CurrentDirectory);
+                }
+            }
             else {
-                break;
+                if(path.toString().isEmpty()){
+                    path = Paths.get("/");
+                }
+                path = Paths.get(path.toString(), token);
             }
         }
         
-        String path = "/";
 
-        if(isRelativePath){
-            
-            for(int i = 0; i<=currentDirectoryPointer; i++){
-                if(currentDirectoryTokens[i].isEmpty()){
-                    continue;
-                }
-                path = Paths.get(path,currentDirectoryTokens[i]).toString();
-                
-            }
-        
-            for(int i= newWorkingDirectoryPointer; i<newWorkingDirectoryTokens.length; i++){
-            
-                if(newWorkingDirectoryTokens[i].isEmpty()){
-                    continue;
-                }
-            
-                path = Paths.get(path,newWorkingDirectoryTokens[i]).toString();
-                
-            }
-        } else {
-            path = newWorkingDirectory;
-            
-        }
-        
-        
-        if(ShellUtils.DoesDirectoryExist(path)) {
-            ShellState.CurrentDirectory = path;
+        if(ShellUtils.DoesDirectoryExist(path.toString())) {
+            ShellState.CurrentDirectory = path.toString();
         } else {
             System.out.println("cd: "+newWorkingDirectory+": No such file or directory");
         }
